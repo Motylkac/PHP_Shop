@@ -1,0 +1,46 @@
+CREATE DATABASE BHP;
+USE BHP;
+
+CREATE TABLE Users (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(100) NOT NULL,
+    PasswordHash VARCHAR(128) NOT NULL,
+    isAdmin BOOLEAN NOT NULL DEFAULT 0
+);
+
+INSERT INTO Users (Username, PasswordHash, isAdmin)
+VALUES 
+('MW', SHA2('MW', 512), 1),
+('A', SHA2('A', 512), 0);
+
+CREATE TABLE articles
+(
+    Item_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Item_Name VARCHAR(100) NOT NULL,
+    Item_Price INT NOT NULL,
+    Item_Quantity INT NOT NULL,
+    Item_Image BLOB
+);
+
+INSERT INTO `articles`(`Item_Name`, `Item_Price`, `Item_Quantity`, `Item_Image`) 
+VALUES 
+('Husteczki Higieniczne', 20, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Chusteczki.jpg')),
+('Rękawice ochronne', 15, 50, LOAD_FILE('C:/xampp/htdocs/BHP/image/Rekawice.jpg')),
+('Kask ochronny', 45, 20, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kask.jpg')),
+('Okulary ochronne', 25, 30, LOAD_FILE('C:/xampp/htdocs/BHP/image/Okulary.jpg')),
+('Maseczka filtrująca', 10, 100, LOAD_FILE('C:/xampp/htdocs/BHP/image/Maske.jpg')),
+('Buty robocze', 70, 15, LOAD_FILE('C:/xampp/htdocs/BHP/image/Buty.jpg')),
+('Kamizelka odblaskowa', 20, 40, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kamizelka.jpg')),
+('Ochraniacze słuchu', 12, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Ochraniacze.jpg')),
+('Pasy bezpieczeństwa', 30, 25, LOAD_FILE('C:/xampp/htdocs/BHP/image/Pasy.jpg'));
+
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    item_id INT NOT NULL,
+    quantity INT NOT NULL,
+    added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(ID),
+    FOREIGN KEY (item_id) REFERENCES articles(Item_ID)
+);
+
