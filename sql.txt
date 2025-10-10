@@ -13,26 +13,29 @@ VALUES
 ('MW', SHA2('MW', 512), 1),
 ('A', SHA2('A', 512), 0);
 
-CREATE TABLE articles
-(
+CREATE TABLE articles (
     Item_ID INT AUTO_INCREMENT PRIMARY KEY,
     Item_Name VARCHAR(100) NOT NULL,
     Item_Price INT NOT NULL,
     Item_Quantity INT NOT NULL,
-    Item_Image BLOB
+    Item_Image BLOB,
+    Item_Description VARCHAR(255),
+    Item_Rating DECIMAL(2,1),
+    CHECK (Item_Rating BETWEEN 1 AND 5 AND (Item_Rating * 2) = FLOOR(Item_Rating * 2))
 );
 
-INSERT INTO `articles`(`Item_Name`, `Item_Price`, `Item_Quantity`, `Item_Image`) 
+INSERT INTO `articles`(`Item_Name`, `Item_Price`, `Item_Quantity`, `Item_Image`, `Item_Description`, `Item_Rating`) 
 VALUES 
-('Husteczki Higieniczne', 20, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Chusteczki.jpg')),
-('Rękawice ochronne', 15, 50, LOAD_FILE('C:/xampp/htdocs/BHP/image/Rekawice.jpg')),
-('Kask ochronny', 45, 20, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kask.jpg')),
-('Okulary ochronne', 25, 30, LOAD_FILE('C:/xampp/htdocs/BHP/image/Okulary.jpg')),
-('Maseczka filtrująca', 10, 100, LOAD_FILE('C:/xampp/htdocs/BHP/image/Maske.jpg')),
-('Buty robocze', 70, 15, LOAD_FILE('C:/xampp/htdocs/BHP/image/Buty.jpg')),
-('Kamizelka odblaskowa', 20, 40, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kamizelka.jpg')),
-('Ochraniacze słuchu', 12, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Ochraniacze.jpg')),
-('Pasy bezpieczeństwa', 30, 25, LOAD_FILE('C:/xampp/htdocs/BHP/image/Pasy.jpg'));
+('Husteczki Higieniczne', 20, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Chusteczki.jpg'), 'Miękkie i delikatne chusteczki higieniczne do codziennego użytku.', 4.5),
+('Rękawice ochronne', 15, 50, LOAD_FILE('C:/xampp/htdocs/BHP/image/Rekawice.jpg'), 'Wytrzymałe rękawice chroniące dłonie podczas pracy.', 4.0),
+('Kask ochronny', 45, 20, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kask.jpg'), 'Bezpieczny kask ochronny zapewniający ochronę głowy.', 5.0),
+('Okulary ochronne', 25, 30, LOAD_FILE('C:/xampp/htdocs/BHP/image/Okulary.jpg'), 'Okulary chroniące oczy przed zanieczyszczeniami i uszkodzeniami.', 4.5),
+('Maseczka filtrująca', 10, 100, LOAD_FILE('C:/xampp/htdocs/BHP/image/Maske.jpg'), 'Maseczka filtrująca do ochrony dróg oddechowych.', 3.5),
+('Buty robocze', 70, 15, LOAD_FILE('C:/xampp/htdocs/BHP/image/Buty.jpg'), 'Wytrzymałe buty robocze z ochroną antypoślizgową.', 4.5),
+('Kamizelka odblaskowa', 20, 40, LOAD_FILE('C:/xampp/htdocs/BHP/image/Kamizelka.jpg'), 'Kamizelka odblaskowa zwiększająca widoczność.', 4.0),
+('Ochraniacze słuchu', 12, 60, LOAD_FILE('C:/xampp/htdocs/BHP/image/Ochraniacze.jpg'), 'Ochraniacze słuchu redukujące hałas.', 3.5),
+('Pasy bezpieczeństwa', 30, 25, LOAD_FILE('C:/xampp/htdocs/BHP/image/Pasy.jpg'), 'Pasy bezpieczeństwa zapewniające ochronę podczas pracy na wysokościach.', 4.0);
+
 
 CREATE TABLE cart (
     cart_id INT AUTO_INCREMENT PRIMARY KEY,

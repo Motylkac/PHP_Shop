@@ -1,6 +1,25 @@
 <?php
 include '../link.php';
 
+function renderStars($rating) {
+    $fullStars = floor($rating);
+    $halfStar = ($rating - $fullStars) >= 0.5 ? true : false;
+    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+
+    $html = '<div class="star-rating">';
+    for ($i = 0; $i < $fullStars; $i++) {
+        $html .= '<span class="star full">&#9733;</span>'; // full star
+    }
+    if ($halfStar) {
+        $html .= '<span class="star half">&#9733;</span>'; // half star
+    }
+    for ($i = 0; $i < $emptyStars; $i++) {
+        $html .= '<span class="star empty">&#9733;</span>'; // empty star
+    }
+    $html .= '</div>';
+    return $html;
+}
+
 $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true;
 $isLoggedIn = isset($_SESSION['username']);
 
@@ -33,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['item_id'], $_POST['qu
     }
 }
 
-$sql = "SELECT Item_ID, Item_Name, Item_Image, Item_Price, Item_Quantity FROM articles";
+$sql = "SELECT Item_ID, Item_Name, Item_Image, Item_Price, Item_Quantity, Item_Description, Item_Rating FROM articles";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -42,7 +61,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8" />
     <title>Strona główna</title>
     <link rel="stylesheet" href="../styles/navbar_s.css?v=1.1">
-    <link rel="stylesheet" href="../styles/home_s.css?v=1.1">
+    <link rel="stylesheet" href="../styles/home_s.css?v=1.3">
 </head>
 <body>
 
@@ -83,6 +102,10 @@ $result = $conn->query($sql);
                 echo '<p>Brak dostępnego zdjęcia</p>';
             }
             ?>
+            <p class="description"><?= htmlspecialchars($row['Item_Description']) ?></p>
+
+            <?= renderStars(floatval($row['Item_Rating'])) ?>
+
             <p><strong>Cena:</strong> <?= htmlspecialchars($row['Item_Price']) ?> PLN</p>
             <p><strong>Dostępna ilość:</strong> <?= htmlspecialchars($row['Item_Quantity']) ?></p>
             

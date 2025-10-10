@@ -23,7 +23,6 @@
     background-color: #ffe5e5;
 }
 
-/* Header styles */
 h1 {
     margin-top: 60px;
     margin-bottom: 10px;
@@ -35,13 +34,11 @@ h2 {
     padding: 0 20px;
 }
 
-/* Body reset */
 body {
     margin: 0;
     padding: 0;
 }
 
-/* Success message */
 .success-message {
     background-color: #d4edda;
     color: #155724;
@@ -67,7 +64,6 @@ body {
     background-color: #218838;
 }
 
-/* Add to cart form */
 .add-to-cart-form {
     margin-top: 15px;
     padding-top: 15px;
@@ -127,4 +123,40 @@ body {
 
 .edit-btn:hover {
     background-color: #138496;
+}
+
+.description {
+    font-style: italic;
+    margin: 10px 0;
+    color: #555;
+}
+
+.star-rating {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.star {
+    display: inline-block;
+    position: relative;
+    color: #ccc; 
+}
+
+.star.full {
+    color: #f5c518; 
+}
+
+.star.half {
+    color: #ccc;
+}
+
+.star.half::before {
+    content: '\2605'; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #f5c518; 
 }
