@@ -2,7 +2,7 @@
 session_start();
 
 $host = 'localhost';
-$db = 'BHP';
+$db = 'bhp';
 $user = 'root';
 $pass = '';
 
